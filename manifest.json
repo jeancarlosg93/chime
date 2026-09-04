@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.nousd.omaclock",
+  "name": "Omaclock",
+  "version": "1.0.0",
+  "author": "nousd",
+  "license": "MIT",
+  "description": "Alarms, world clocks, timers and a stopwatch that stay visible in the Omarchy bar while they run.",
+  "kinds": [
+    "service",
+    "bar-widget"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "service": "Service.qml",
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Omaclock",
+    "description": "Alarm, world clock, timer, stopwatch",
+    "category": "Time",
+    "allowMultiple": false,
+    "defaultSection": "center",
+    "defaults": {
+      "alwaysShow": false,
+      "showNextAlarm": true,
+      "hour12": false,
+      "quickTimerMinutes": "5",
+      "snoozeMinutes": "9",
+      "ringSeconds": "300",
+      "mute": false,
+      "sound": ""
+    },
+    "schema": [
+      {
+        "key": "alwaysShow",
+        "type": "boolean",
+        "label": "Show the icon even while nothing is running (otherwise it peeks out on hover, like the indicators)",
+        "defaultValue": false
+      },
+      {
+        "key": "showNextAlarm",
+        "type": "boolean",
+        "label": "Show the next alarm in the bar",
+        "defaultValue": true
+      },
+      {
+        "key": "hour12",
+        "type": "boolean",
+        "label": "12-hour times (7:30 PM)",
+        "defaultValue": false
+      },
+      {
+        "key": "quickTimerMinutes",
+        "type": "string",
+        "label": "Middle-click timer, in minutes",
+        "defaultValue": "5"
+      },
+      {
+        "key": "snoozeMinutes",
+        "type": "string",
+        "label": "Snooze length, in minutes",
+        "defaultValue": "9"
+      },
+      {
+        "key": "ringSeconds",
+        "type": "string",
+        "label": "Ring for this many seconds before stopping on its own",
+        "defaultValue": "300"
+      },
+      {
+        "key": "mute",
+        "type": "boolean",
+        "label": "Ring silently (screen only)",
+        "defaultValue": false
+      },
+      {
+        "key": "sound",
+        "type": "string",
+        "label": "Ring sound file (empty for the system alarm sound)",
+        "defaultValue": ""
+      }
+    ]
+  }
+}
