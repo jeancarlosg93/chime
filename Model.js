@@ -1,4 +1,4 @@
-// Pure helpers for Omaclock: durations, alarm scheduling, stopwatch math,
+// Pure helpers for Chime: durations, alarm scheduling, stopwatch math,
 // world-clock offsets, bar labels, and the persisted state's shape. Nothing
 // in here touches Qt or Quickshell, so the whole file runs under node
 // (test/model.test.js). The QML owns the clock, the files, and the windows.

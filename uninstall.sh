@@ -7,7 +7,7 @@
 #                              # cities for a later reinstall
 set -uo pipefail
 
-id="io.github.nousd.omaclock"
+id="io.github.nousd.chime"
 keep=0
 case "${1:-}" in
   "") ;;
@@ -22,10 +22,10 @@ fail() {
 }
 
 if omarchy-shell shell ping >/dev/null 2>&1; then
-  omarchy-shell omaclock stop >/dev/null 2>&1 || true
+  omarchy-shell chime stop >/dev/null 2>&1 || true
   # A split layout is two bar entries; fold them into one so the removal
   # below takes the last one with it.
-  omarchy-shell omaclock layout merge >/dev/null 2>&1 || true
+  omarchy-shell chime layout merge >/dev/null 2>&1 || true
   sleep 1
 fi
 
@@ -47,7 +47,7 @@ if [[ -f $shell_json ]] && command -v jq >/dev/null; then
   }
 fi
 
-state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/omaclock"
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/chime"
 if (( keep )); then
   echo "Removed $id. State kept in $state_dir."
 else

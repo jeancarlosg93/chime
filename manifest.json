@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "io.github.nousd.omaclock",
-  "name": "Omaclock",
+  "id": "io.github.nousd.chime",
+  "name": "Chime",
   "version": "1.0.0",
   "author": "nousd",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "barWidget": "BarWidget.qml"
   },
   "barWidget": {
-    "displayName": "Omaclock",
+    "displayName": "Chime",
     "description": "Alarm, world clock, timer, stopwatch",
     "category": "Time",
     "allowMultiple": false,

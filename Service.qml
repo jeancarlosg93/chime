@@ -7,10 +7,10 @@ import qs.Commons
 import qs.Ui
 import "Model.js" as Model
 
-// Headless singleton behind the Omaclock bar widget. The shell mounts one of
+// Headless singleton behind the Chime bar widget. The shell mounts one of
 // these however many bar surfaces (monitors) carry the widget, so alarms,
 // timers, the stopwatch and the world clocks have a single owner, the
-// `omaclock` IPC target is registered exactly once, and a ring plays once.
+// `chime` IPC target is registered exactly once, and a ring plays once.
 //
 // Everything is stored as instants, never as counters: a timer is its end
 // time, the stopwatch is when it last started plus what it had banked, an
@@ -19,7 +19,7 @@ import "Model.js" as Model
 // restart or a night asleep — and anything more than a few minutes overdue
 // is reported as missed instead of going off late.
 //
-// State lives in $XDG_STATE_HOME/omaclock/state.json, written atomically a
+// State lives in $XDG_STATE_HOME/chime/state.json, written atomically a
 // beat after every change. The ring is a layer-shell card on every screen
 // plus a looping sound; both stop together.
 Item {
@@ -28,8 +28,8 @@ Item {
   // Injected by the shell host.
   property var shell: null
 
-  readonly property string pluginId: "io.github.nousd.omaclock"
-  readonly property string ipcTarget: "omaclock"
+  readonly property string pluginId: "io.github.nousd.chime"
+  readonly property string ipcTarget: "chime"
 
   // ---- Settings. They live inline on the widget's bar entries in shell.json,
   //      read here from the shell's own config so every surface sees one
@@ -83,7 +83,7 @@ Item {
   property bool saveFailureReported: false
 
   readonly property string stateHome: Quickshell.env("XDG_STATE_HOME") || (Quickshell.env("HOME") + "/.local/state")
-  readonly property string stateDir: stateHome + "/omaclock"
+  readonly property string stateDir: stateHome + "/chime"
   readonly property string statePath: stateDir + "/state.json"
 
   // ---- Time. `nowMs` moves with the system clock: every second while
@@ -139,8 +139,8 @@ Item {
     if (!parsed) {
       // Present but not trustworthy (truncated, hand-edited, a newer
       // version). It is moved aside rather than written over, and said so.
-      console.warn("omaclock: state file is not usable, keeping it as state.json.bad: " + statePath)
-      notify(Model.ICON_ALARM, "Omaclock could not read its saved alarms", "Starting empty. The old file is kept as state.json.bad in " + stateDir)
+      console.warn("chime: state file is not usable, keeping it as state.json.bad: " + statePath)
+      notify(Model.ICON_ALARM, "Chime could not read its saved alarms", "Starting empty. The old file is kept as state.json.bad in " + stateDir)
       saveBlocked = true
       quarantineProc.running = true
       parsed = Model.emptyState()
@@ -168,10 +168,10 @@ Item {
   }
 
   function reportSaveFailure(detail) {
-    console.warn("omaclock: could not write " + statePath + ": " + detail)
+    console.warn("chime: could not write " + statePath + ": " + detail)
     if (saveFailureReported) return
     saveFailureReported = true
-    notify(Model.ICON_ALARM, "Omaclock cannot save its state", "Alarms, timers and cities will be lost on restart. Check " + stateDir)
+    notify(Model.ICON_ALARM, "Chime cannot save its state", "Alarms, timers and cities will be lost on restart. Check " + stateDir)
   }
 
   // ------------------------------------------------------------------- tick
@@ -558,7 +558,7 @@ Item {
       return
     }
     offsetsPending = false
-    offsetsProc.command = ["bash", "-c", offsetsScript, "omaclock-offsets"].concat(zones)
+    offsetsProc.command = ["bash", "-c", offsetsScript, "chime-offsets"].concat(zones)
     offsetsProc.running = true
   }
 
@@ -826,7 +826,7 @@ Item {
       return
     }
     soundStartedAt = Date.now()
-    soundProc.command = ["bash", "-c", soundScript, "omaclock-sound", file]
+    soundProc.command = ["bash", "-c", soundScript, "chime-sound", file]
     soundProc.running = true
   }
 
@@ -843,7 +843,7 @@ Item {
     var quickFailure = exitCode !== 0 && Date.now() - soundStartedAt < 1500
     if (exitCode === 3 || (quickFailure && ++soundFailures >= 3)) {
       soundBroken = true
-      console.warn("omaclock: cannot play " + soundPath + " (missing, unreadable, undecodable, or no pw-play/paplay/mpv/ffplay); ringing silently")
+      console.warn("chime: cannot play " + soundPath + " (missing, unreadable, undecodable, or no pw-play/paplay/mpv/ffplay); ringing silently")
       return
     }
     if (!quickFailure) soundFailures = 0
@@ -1011,7 +1011,7 @@ Item {
         visible: root.ringing !== null
         color: "transparent"
         exclusionMode: ExclusionMode.Ignore
-        WlrLayershell.namespace: "omaclock-ring"
+        WlrLayershell.namespace: "chime-ring"
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 

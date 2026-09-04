@@ -4,7 +4,7 @@ import qs.Commons
 import qs.Ui
 import "Model.js" as Model
 
-// Bar entry for Omaclock. It behaves like one of the bar's hidden
+// Bar entry for Chime. It behaves like one of the bar's hidden
 // indicators: while nothing is going on it takes no room and only peeks
 // out, dimmed, when the pointer is over the center section. The moment
 // something is live it is simply there — every running timer counting down,
@@ -22,7 +22,7 @@ import "Model.js" as Model
 // click stops it.
 BarWidget {
   id: root
-  moduleName: "io.github.nousd.omaclock"
+  moduleName: "io.github.nousd.chime"
 
   readonly property var service: bar && bar.shell && typeof bar.shell.serviceFor === "function"
     ? bar.shell.serviceFor(moduleName) : null
@@ -210,7 +210,7 @@ BarWidget {
     horizontalMargin: root.showsIcon ? 5 : 8.5
     active: root.showsRing
     dimmed: root.showsIcon
-    tooltipText: "Omaclock"
+    tooltipText: "Chime"
 
     onPressed: function(buttonCode) {
       if (root.ringing) {

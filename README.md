@@ -1,4 +1,4 @@
-# Omaclock
+# Chime
 
 Alarms, world clocks, timers and a stopwatch for the Omarchy bar — and they
 stay in the bar while they matter. A running timer counts down next to the
@@ -9,13 +9,13 @@ indicators, when you hover the center of the bar. No daemons, no downloads,
 no network: one Quickshell service inside the shell you already run, plus a
 state file.
 
-![Omaclock panel](preview.png)
+![Chime panel](preview.png)
 
 ## Install
 
 ```sh
-omarchy plugin add https://github.com/nousd/omaclock.git --enable
-omarchy-shell omaclock layout split
+omarchy plugin add https://github.com/nousd/chime.git --enable
+omarchy-shell chime layout split
 ```
 
 The second line makes it behave exactly like one of the bar's hidden
@@ -57,15 +57,15 @@ field), `Esc` closes. On the stopwatch tab `Space` starts and pauses,
 ## Configure
 
 ```sh
-omarchy bar set io.github.nousd.omaclock alwaysShow true --json        # keep the icon visible while idle
-omarchy bar set io.github.nousd.omaclock showNextAlarm false --json    # keep alarms out of the bar
-omarchy bar set io.github.nousd.omaclock hour12 true --json            # 7:30 PM instead of 19:30
-omarchy bar set io.github.nousd.omaclock quickTimerMinutes 10          # middle-click timer length
-omarchy bar set io.github.nousd.omaclock snoozeMinutes 5
-omarchy bar set io.github.nousd.omaclock ringSeconds 120               # how long a ring lasts unanswered
-omarchy bar set io.github.nousd.omaclock mute true --json              # screen only, no sound
-omarchy bar set io.github.nousd.omaclock sound ~/Music/bell.ogg        # any file pw-play, paplay, mpv or ffplay can play
-omarchy bar move io.github.nousd.omaclock --section right
+omarchy bar set io.github.nousd.chime alwaysShow true --json        # keep the icon visible while idle
+omarchy bar set io.github.nousd.chime showNextAlarm false --json    # keep alarms out of the bar
+omarchy bar set io.github.nousd.chime hour12 true --json            # 7:30 PM instead of 19:30
+omarchy bar set io.github.nousd.chime quickTimerMinutes 10          # middle-click timer length
+omarchy bar set io.github.nousd.chime snoozeMinutes 5
+omarchy bar set io.github.nousd.chime ringSeconds 120               # how long a ring lasts unanswered
+omarchy bar set io.github.nousd.chime mute true --json              # screen only, no sound
+omarchy bar set io.github.nousd.chime sound ~/Music/bell.ogg        # any file pw-play, paplay, mpv or ffplay can play
+omarchy bar move io.github.nousd.chime --section right
 ```
 
 With a split layout the settings on the first of the two bar entries are
@@ -74,12 +74,12 @@ the ones that count, and that is the entry `omarchy bar set` writes.
 A keybinding for the panel, in `~/.config/hypr/bindings.lua`:
 
 ```lua
-o.bind("SUPER + ALT + C", "Omaclock", "omarchy-shell -q shell toggle io.github.nousd.omaclock")
+o.bind("SUPER + ALT + C", "Chime", "omarchy-shell -q shell toggle io.github.nousd.chime")
 ```
 
 ## Scripting
 
-`omarchy-shell omaclock <verb>`. Every argument is required (the shell's
+`omarchy-shell chime <verb>`. Every argument is required (the shell's
 IPC has no optional ones), so pass `""` for a label or day list you do not
 want.
 
@@ -111,7 +111,7 @@ and whenever the list changes, because the shell's JavaScript engine has no
 time-zone support of its own. The city list is tzdata's own
 `zone1970.tab`, read when the World tab first opens.
 
-State lives in `~/.local/state/omaclock/state.json` (or under
+State lives in `~/.local/state/chime/state.json` (or under
 `$XDG_STATE_HOME`), written atomically a beat after every change. Labels
 are stripped to bounded plain text before they reach the bar, the ring
 card, or a notification. The plugin touches nothing else: no config files,
@@ -122,7 +122,7 @@ does not change your volume.
 ## Remove
 
 ```sh
-~/.config/omarchy/plugins/io.github.nousd.omaclock/uninstall.sh
+~/.config/omarchy/plugins/io.github.nousd.chime/uninstall.sh
 ```
 
 Removes the plugin and its state file. Pass `--keep-state` to keep your

@@ -5,7 +5,7 @@ import qs.Commons
 import qs.Ui
 import "Model.js" as Model
 
-// Omaclock's popup: four tabs — Alarm, World, Timer, Stopwatch — with a
+// Chime's popup: four tabs — Alarm, World, Timer, Stopwatch — with a
 // banner above them only while something rings. Every list keeps one cursor
 // that the keyboard and the mouse share (see CursorSurface): Up/Down pick a
 // row, Enter acts on it (alarm on/off, pin a clock, pause a timer), x
@@ -17,7 +17,7 @@ import "Model.js" as Model
 // anchor against, plus the plugin's service singleton that holds the state.
 Panel {
   id: root
-  moduleName: "io.github.nousd.omaclock"
+  moduleName: "io.github.nousd.chime"
   manageIpc: false
 
   property var anchorItem: null
@@ -343,7 +343,7 @@ Panel {
     onTriggered: {
       if (root.renamingClock === "" || root.renamingClock !== tz) return
       var focused = keyCatcher.Window.activeFocusItem
-      if (focused && focused.objectName === "omaclock-rename") return
+      if (focused && focused.objectName === "chime-rename") return
       root.cancelRename()
     }
   }
@@ -513,7 +513,7 @@ Panel {
           textFormat: Text.PlainText
           visible: !root.service
           width: parent.width
-          text: "Omaclock's service is not loaded, so nothing here will work. Check `qs log` for the error."
+          text: "Chime's service is not loaded, so nothing here will work. Check `qs log` for the error."
           color: root.urgent
           font.family: root.fontFamily
           font.pixelSize: Style.font.caption
@@ -1210,7 +1210,7 @@ Panel {
         // field picks the draft up from the same place it left it.
         TextField {
           id: renameField
-          objectName: "omaclock-rename"
+          objectName: "chime-rename"
           visible: crow.renaming
           width: parent.width
           verticalPadding: Style.space(2)
