@@ -6,6 +6,7 @@ import Quickshell.Wayland
 import qs.Commons
 import qs.Ui
 import "Model.js" as Model
+import "." as Local
 
 // Headless singleton behind the Chime bar widget. The shell mounts one of
 // these however many bar surfaces (monitors) carry the widget, so alarms,
@@ -991,10 +992,16 @@ Item {
     onTriggered: root.ensureSound()
   }
 
-  Component.onCompleted: ensureDir.running = true
+  Component.onCompleted: {
+    Local.ChimeRuntime.service = root
+    ensureDir.running = true
+  }
 
   // A plugin reload while ringing must not leave the sound loop behind.
-  Component.onDestruction: stopSound()
+  Component.onDestruction: {
+    if (Local.ChimeRuntime.service === root) Local.ChimeRuntime.service = null
+    stopSound()
+  }
 
   // ---- The ring: a card on every screen, over everything, with the keys
   //      anyone would press at an alarm. Escape, Enter and Space stop it;

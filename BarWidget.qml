@@ -3,6 +3,7 @@ import QtQuick
 import qs.Commons
 import qs.Ui
 import "Model.js" as Model
+import "." as Local
 
 // Bar entry for Chime. It behaves like one of the bar's hidden
 // indicators: while nothing is going on it takes no room and only peeks
@@ -24,8 +25,7 @@ BarWidget {
   id: root
   moduleName: "io.github.nousd.chime"
 
-  readonly property var service: bar && bar.shell && typeof bar.shell.serviceFor === "function"
-    ? bar.shell.serviceFor(moduleName) : null
+  readonly property var service: Local.ChimeRuntime.service
 
   // Settings come from the service, which merges every bar entry of this
   // widget the same way for every surface; this instance's own entry is only

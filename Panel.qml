@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 import qs.Commons
 import qs.Ui
 import "Model.js" as Model
@@ -521,6 +522,7 @@ Panel {
         }
 
         ButtonGroup {
+          anchors.horizontalCenter: parent.horizontalCenter
           options: root.tabs
           value: root.tab
           focusable: false
@@ -697,6 +699,7 @@ Panel {
               }
 
               Row {
+                anchors.horizontalCenter: parent.horizontalCenter
                 spacing: Style.space(8)
 
                 Button {
@@ -721,6 +724,7 @@ Panel {
 
           Button {
             visible: root.editingAlarm === ""
+            anchors.horizontalCenter: parent.horizontalCenter
             iconText: Model.ICON_PLUS
             text: "Add alarm"
             bordered: true
@@ -829,15 +833,19 @@ Panel {
           width: parent.width
           spacing: Style.space(8)
 
-          Flow {
+          GridLayout {
             width: parent.width
-            spacing: Style.space(6)
+            columns: width < Style.space(390) ? 3 : 6
+            columnSpacing: Style.space(6)
+            rowSpacing: Style.space(6)
 
             Repeater {
               model: [1, 5, 10, 15, 30, 60]
 
               Button {
                 required property var modelData
+                Layout.fillWidth: true
+                Layout.preferredWidth: 1
                 readonly property int minutes: Number(modelData)
                 text: minutes >= 60 ? (minutes / 60) + " h" : minutes + " min"
                 bordered: true
