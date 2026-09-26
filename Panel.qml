@@ -748,6 +748,19 @@ Panel {
             SearchableDropdown {
               id: zonePicker
               width: parent.width
+              // The shared dropdown subtracts two md margins from its search
+              // header. Reserve the input's natural height including padding
+              // and focus border, so the font is not clipped inside that box.
+              popupRowHeight: Math.max(Style.spacing.popupRowHeight,
+                Math.ceil(searchSizeProbe.implicitHeight) + 2 * Style.spacing.md - Style.spacing.controlPaddingX)
+              TextField {
+                id: searchSizeProbe
+                visible: false
+                text: "Ag"
+                font.family: root.fontFamily
+                font.pixelSize: Style.font.body
+                hasCursor: true
+              }
               showLabel: false
               options: root.service ? root.service.zoneOptions : []
               value: ""

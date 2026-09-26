@@ -11,10 +11,17 @@ state file.
 
 ![Chime panel](preview.png)
 
+## Personal fork
+
+This fork preserves Jean Carlos Guzman's installed modifications to
+[nousd/chime](https://github.com/nousd/chime): service connections on custom
+bars, balanced panel controls, and a world-clock search field that does not
+clip its text. The original MIT license and plugin ID are retained.
+
 ## Install
 
 ```sh
-omarchy plugin add https://github.com/nousd/chime.git --enable
+omarchy plugin add https://github.com/jeancarlosg93/chime.git --enable
 omarchy-shell chime layout split
 ```
 
